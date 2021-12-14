@@ -1,6 +1,6 @@
-<p align="center">
+<!-- <p align="center">
  
-<img height=200px src="./src/logo/logo.jpeg" >         
+<!--<img height=200px src="./src/logo/logo.jpeg" >         
         </p>
 <h1 align="center"> E-Certify </h1>
 <h3 align="center"> Blockchain Based Certificate Validation <h3>
@@ -16,7 +16,7 @@
   ![](https://img.shields.io/github/stars/nikhildsahu/E-Certify.svg?style=for-the-badge) 
   ![](https://img.shields.io/github/license/nikhildsahu/E-Certify.svg?style=for-the-badge)
   
- </div>
+ </div>-->
 
 ##  E-Certify : About
 - It is a blockchain based project for online certificate validation. 
@@ -147,3 +147,4 @@
 ## License
 This project is licensed under the MIT - see the [LICENSE](https://github.com/nikhildsahu/E-Certify/blob/master/LICENSE) file for details.
   
+ -->

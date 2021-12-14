@@ -201,7 +201,7 @@ class MyDocuments extends Component {
                 ) : null}
                 {/* array map the above content  */}
                 <br />
-                <Grid container justify="center">
+                <Grid container justifyContent="center">
                   <Button
                     variant="outlined"
                     color="secondary"
@@ -247,7 +247,7 @@ class MyDocuments extends Component {
                       <DialogContentText style={{ marginTop: "15px" }}>
                         Upload a picture
                       </DialogContentText>
-                      <Grid container justify="center">
+                      <Grid container justifyContent="center">
                         <img
                           src={`https://gateway.ipfs.io/ipfs/${
                             this.state.aadhar

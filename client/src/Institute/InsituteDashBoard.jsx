@@ -184,7 +184,7 @@ class InstituteDashBoard extends Component {
                           {this.state.owner2.substring(0, 8) + ".."}
                         </Typography> */}
                         </Grid>
-                        <Grid container justify="center">
+                        <Grid container justifyContent="center">
                           <br />
                           <Button
                             variant="outlined"
@@ -201,7 +201,7 @@ class InstituteDashBoard extends Component {
                         </Grid>
                         <Grid
                           container
-                          justify="center"
+                          justifyContent="center"
                           style={{ margin: "5%" }}
                         >
                           {/* <DrawerRHS

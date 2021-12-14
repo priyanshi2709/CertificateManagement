@@ -89,7 +89,7 @@ class ChangeInst extends Component {
           <Grid item md={12}>
             {this.state.flag ? (
               <div>
-                <Grid container justify="center">
+                <Grid container justifyContent="center">
                   <Grid item md={4}>
                     <Card
                       style={{

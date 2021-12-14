@@ -211,7 +211,7 @@ class DrawerRHS extends React.Component {
               {/* <DialogContentText style={{ marginTop: "15px" }}>
               Create New Upload
             </DialogContentText> */}
-              <Grid container justify="center">
+              <Grid container justifyContent="center">
                 <img
                   src="https://99designs-blog.imgix.net/wp-content/uploads/2016/11/CNN.png?auto=format&q=60&fit=max&w=930"
                   alt="CNN"

@@ -65,7 +65,7 @@ class OtpS extends Component {
   render() {
     return (
       <div>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Grid item md={3} style={{ margin: "5%" }}>
             <Card style={{ padding: "25px", width: "500px" }}>
               <Typography variant="h4" color="primary">

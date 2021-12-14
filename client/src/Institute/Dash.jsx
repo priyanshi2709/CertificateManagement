@@ -105,7 +105,7 @@ class Dash extends Component {
                           My Address : 8855RXJ445
                         </Typography>
                       </Grid>
-                      <Grid container justify="center">
+                      <Grid container justifyContent="center">
                         <br />
                         <Button
                           variant="outlined"
@@ -116,7 +116,7 @@ class Dash extends Component {
                         </Button>
                       </Grid>
                     </Grid>
-                    <Grid container justify="center" style={{ margin: "5%" }}>
+                    <Grid container justifyContent="center" style={{ margin: "5%" }}>
                       <DrawerRHS />
                     </Grid>
                   </Grid>

@@ -72,7 +72,7 @@ class ApproveChnageInst extends Component {
           </Grid>
         </Grid>
         <div>
-          <Grid container justify="center">
+          <Grid container justifyContent="center">
             <Grid item md={10}>
               <Card
                 style={{

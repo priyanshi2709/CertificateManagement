@@ -25,13 +25,13 @@ class Login extends Component {
       //   </button>
       // </div>
       <div>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Grid item md={3}>
             <Card>
               <Typography variant="h4" style={{ textAlign: "center" }}>
                 Student
               </Typography>
-              <Grid container justify="center">
+              <Grid container justifyContent="center">
                 <Button
                   style={{ margin: "25px" }}
                   variant="outlined"
@@ -48,7 +48,7 @@ class Login extends Component {
               <Typography variant="h4" style={{ textAlign: "center" }}>
                 Institute
               </Typography>{" "}
-              <Grid container justify="center">
+              <Grid container justifyContent="center">
                 <Button
                   style={{ margin: "25px" }}
                   variant="outlined"

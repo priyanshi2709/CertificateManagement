@@ -221,7 +221,7 @@ class UploadPage extends Component {
             <DialogContentText style={{ marginTop: "15px" }}>
               Upload a picture
             </DialogContentText>
-            <Grid container justify="center">
+            <Grid container justifyContent="center">
               <img
                 src={`https://gateway.ipfs.io/ipfs/${this.state.profilepic}`}
                 alt="Your Profile Pic Here"

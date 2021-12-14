@@ -58,7 +58,7 @@ export default class SearchReq extends React.Component {
   render() {
     return (
       <div>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Grid item md={4}>
             <Card style={{ margin: "50px", padding: "25px", width: "500px" }}>
               <Typography variant="h4" style={{ color: "#303F9F" }}>
@@ -111,10 +111,10 @@ export default class SearchReq extends React.Component {
               {/* <DialogContentText style={{ marginTop: "15px" }}>
               Create New Upload
             </DialogContentText> */}
-              <Grid container justify="center">
+              <Grid container justifyContent="center">
                 <img
                   src={`https://gateway.ipfs.io/ipfs/${this.state.profilepic}`}
-                  alt="rofile Pic here"
+                  alt="Profile Pic here"
                   style={{ margin: "20px", height: "200px", width: "200px" }}
                 />
               </Grid>{" "}

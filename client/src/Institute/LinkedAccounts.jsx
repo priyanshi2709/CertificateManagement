@@ -256,7 +256,7 @@ class LinkedAccount extends Component {
                     {/* <DialogContentText style={{ marginTop: "15px" }}>
               Create New Upload
             </DialogContentText> */}
-                    <Grid container justify="center">
+                    <Grid container justifyContent="center">
                       <img
                         src={`https://gateway.ipfs.io/ipfs/${hj.pic}`}
                         alt="CNN"

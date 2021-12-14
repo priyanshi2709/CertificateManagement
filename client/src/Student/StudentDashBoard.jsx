@@ -112,7 +112,7 @@ class StudentDashBoard extends Component {
       <BrowserRouter>
         <div>
           <div>
-            <Grid container justify="flex-start">
+            <Grid container justifyContent="flex-start">
               <Grid item md={12}>
                 <TopNav
                   accounts={this.props.accounts}
@@ -191,7 +191,7 @@ class StudentDashBoard extends Component {
                           </Typography>
                         </Grid>
 
-                        <Grid container justify="center">
+                        <Grid container justifyContent="center">
                           <br />
                           <Button
                             variant="outlined"

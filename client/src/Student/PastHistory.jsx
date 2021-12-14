@@ -151,7 +151,7 @@ class PastHistory extends Component {
                     {/* <DialogContentText style={{ marginTop: "15px" }}>
             Create New Upload
           </DialogContentText> */}
-                    <Grid container justify="center">
+                    <Grid container justifyContent="center">
                       <img
                         src={`https://gateway.ipfs.io/ipfs/${hj.propic}`}
                         alt="CNN"
@@ -180,7 +180,7 @@ class PastHistory extends Component {
                             }
                           }}
                         >
-                          <Grid container justify="center">
+                          <Grid container justifyContent="center">
                             <img
                               src={`https://gateway.ipfs.io/ipfs/${hj.pic}`}
                               alt="Your Profile Pic Here"

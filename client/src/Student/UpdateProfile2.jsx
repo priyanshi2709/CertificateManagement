@@ -104,6 +104,14 @@ class UpdateProf extends Component {
     };
   };
 
+  // hj = async a => {
+  //   await ipfs.add(a, (err, ipfsHash) => {
+  //     console.log(err, ipfsHash);
+
+  //     this.setState({ profilepic: ipfsHash[0].hash });
+  //   });
+  // };
+
   hj = async a => {
     await ipfs.add(a, (err, ipfsHash) => {
       console.log(err, ipfsHash);
@@ -111,6 +119,7 @@ class UpdateProf extends Component {
       this.setState({ profilepic: ipfsHash[0].hash });
     });
   };
+  
   componentDidMount = async () => {
     console.log("idhsiod");
     var e = fire.auth().currentUser.email;

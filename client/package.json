@@ -8,6 +8,7 @@
     "callbackify": "^1.1.0",
     "firebase": "^5.8.5",
     "ipfs-api": "1.0.1-2",
+    "ipfs-http-client": "^54.0.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.0",
     "react-router-dom": "6.1.1",

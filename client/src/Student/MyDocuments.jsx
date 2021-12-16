@@ -20,6 +20,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import SimpleStorageContract from "../contracts/SimpleStorage.json";
 import FullScreenDialog from "../CommonComponents/FullScreenDialog";
+import fire from "../Fire";
+
 
 class MyDocuments extends Component {
   constructor(props) {
@@ -39,12 +41,34 @@ class MyDocuments extends Component {
     this.setState({ open: true });
   };
 
+  firebaseset = () => {
+    try {
+      const { accounts, contract } = this.props;
+
+      fire
+        .database()
+        .ref()
+        .child("UID")
+        .child(accounts[0])
+        .child("doc")
+        .set(this.state.aadhar);
+      
+    } catch (fipu) {}
+  };
+
   handleClose = () => {
     this.setState({ open: false });
   };
-  captureFile = event => {
+  captureFile = async event => {
+    const { accounts, contract } = this.props;
     event.preventDefault();
     const file = event.target.files[0];
+
+    const added = await ipfs.add(file);
+    this.setState({ aadhar: added.path });
+    this.setState({hasAadhar:true});
+    this.firebaseset();
+
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
@@ -57,12 +81,12 @@ class MyDocuments extends Component {
 
   hih = async () => {
     const { accounts, contract } = this.props;
-
+    console.log("INSIDE HIH MYDOC");
     await contract.methods
       .uploadAadhar(this.state.aadhar)
       .send({ from: accounts[0] });
     const response = await contract.methods.getAadhar(accounts[0]).call();
-
+      
     this.setState({ aadhar: response }); //check once
     console.log(this.state);
   };
@@ -77,7 +101,7 @@ class MyDocuments extends Component {
 
   newUpload = async () => {
     const { accounts, contract } = this.props;
-
+    console.log(this.state.aadhar);
     await contract.methods
       .createUploadRequestbyUser(true, this.state.aadhar)
       .send({ from: accounts[0] });
@@ -91,7 +115,12 @@ class MyDocuments extends Component {
 
   getDoc = async () => {
     const { accounts, contract } = this.props;
-    var r = await contract.methods.getAadhar(accounts[0]).call();
+    //var r = await contract.methods.getAadhar(accounts[0]).call();
+    const response1 = await contract.methods.getProfile(accounts[0]).call();
+    //this.setState({ aadhar: response1[0] });
+    //this.setState({ profilepic: response1[1] });
+    console.log(response1);
+    var r=this.state.aadhar;
     console.log(r);
     if (r.length > 0) {
       window.open(`https://gateway.ipfs.io/ipfs/${r}`);
@@ -102,21 +131,25 @@ class MyDocuments extends Component {
 
   componentDidMount = async () => {
     const { accounts, contract } = this.props;
-
+    
+    console.log("DOC ACC",accounts);
     var r = await contract.methods.getAadhar(accounts[0]).call();
     if (r.length > 0) {
       this.setState({ hasAadhar: true });
     }
     var t = await contract.methods
-      .getUploadReqList(this.props.accounts[0])
+      .getUploadReqList(accounts[0])
       .call();
     console.log(t);
-    // const response1 = await contract.methods.getProfile(t[t.length - 1]).call();
-    // console.log(t[t.length - 1]);
-    // this.setState({ lastuploaderadd: t[t.length - 1] });
-    // this.setState({ lastuploadername: response1[0] });
-    // this.setState({ lastuploaderpic: response1[1] });
-    // this.componentWillUpdateis.setState({});
+
+    const rootRef = fire.database().ref();
+    const doc_hash = rootRef.child("UID").child(accounts[0]).child("doc");
+    
+    doc_hash.once('value', (snapshot) => {
+      const data = snapshot.val();
+      this.state.aadhar=data;
+    });
+    
   };
 
   render() {
@@ -155,8 +188,8 @@ class MyDocuments extends Component {
                       (Click on the Document name to view.)
                     </Typography>
                   </Typography>
-                </Grid>{" "}
-                {/* array map ExpPanel.jsx */}
+                </Grid>
+                
                 {this.state.hasAadhar ? (
                   <ExpansionPanel style={{ width: "800px" }}>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

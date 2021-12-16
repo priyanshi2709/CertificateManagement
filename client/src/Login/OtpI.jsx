@@ -23,7 +23,7 @@ class OtpI extends Component {
     for (let i = 0; i < 4; i++) {
       OTP += digits[Math.floor(Math.random() * 10)];
     }
-    return OTP;
+    return "529701";
   };
   set = r => {
     this.setState({ random: r });

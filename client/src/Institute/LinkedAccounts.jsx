@@ -31,7 +31,9 @@ class LinkedAccount extends Component {
       newinstadd: "",
       hasAadhar: ""
     };
+    
   }
+  
   getDoc = async a => {
     const { accounts, contract } = this.props;
     var r = await contract.methods.getAadhar(a).call();
@@ -42,9 +44,14 @@ class LinkedAccount extends Component {
       window.alert("NULL");
     }
   };
-  componentDidMount = async () => {
+  componentWillMount = async () => {
     const { accounts, contract } = this.props;
-    await this.verify();
+    const linked_accts=await this.verify();
+    this.setState({hj:linked_accts});
+    console.log("LINKED_ACCTS",linked_accts);
+    
+    console.log("Hello After Linked",linked_accts.length);
+
     var r = await contract.methods.getAadhar(accounts[0]).call();
     if (r.length > 0) {
       this.setState({ hasAadhar: true });
@@ -55,16 +62,23 @@ class LinkedAccount extends Component {
 
     const re = await contract.methods.getInstitutesWallet(accounts[0]).call();
     var h = [];
+    console.log("INSIDE VERIFY");
+
+    var i=0;
 
     re.map(async re => {
       var assa = await contract.methods.getChangeOwnerList(re).call();
-      console.log("AA", re);
+      console.log("Accounts", re);
 
       var getDet = await contract.methods.getProfile(re).call();
       h.push({ a: re, b: assa[0], name: getDet[0], pic: getDet[1] });
+      //this.setState({hj:{ a: re[i], b: assa[0], name: getDet[0], pic: getDet[1] }});
+      
+      //this.setState({ hj: h });
+      console.log(h);
+      
     });
-
-    this.setState({ hj: h });
+    return h;
   };
 
   handleClickOpen = () => {
@@ -311,7 +325,7 @@ class LinkedAccount extends Component {
               >
                 <DialogTitle id="form-dialog-title">
                   <Typography style={{ color: "#1a237e" }} variant="h4">
-                    Chnage Institute Of student
+                    Change Institute Of student
                   </Typography>
                 </DialogTitle>
                 <DialogContent>

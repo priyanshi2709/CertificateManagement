@@ -137,16 +137,24 @@ class UploadPage extends Component {
     }
   };
 
-  captureFile = event => {
+   captureFile = async event => {
     this.ch();
     event.preventDefault();
     const file = event.target.files[0];
     console.log(event.target.files);
+
+    const added = await ipfs.add(file);
+    this.setState({ profilepic: added.path });
+
+    console.log("NEW PROFILE", this.state.profilepic);
+
+
     const reader = new window.FileReader();
+    console.log(reader);
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
       // this.setState({ buffer: Buffer(reader.result) });
-      //   console.log("buffjmnnnnnnnnnnnnnnnnnner", Buffer(reader.result));
+      console.log("buffjmnnnnnnnnnnnnnnnnnner", Buffer(reader.result));
 
       this.hj(Buffer(reader.result));
     };
@@ -158,7 +166,8 @@ class UploadPage extends Component {
   hj = async a => {
     await ipfs.add(a, (err, ipfsHash) => {
       console.log(err, ipfsHash);
-
+      console.log("HELLO IPFS");
+      console.log("HASH",ipfsHash[0].hash)
       this.setState({ profilepic: ipfsHash[0].hash });
       this.setState({ flag: false });
       console.log(2, this.state.flag);

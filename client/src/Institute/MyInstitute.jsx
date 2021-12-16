@@ -157,9 +157,9 @@ class MyInstitute extends React.Component {
                   <Avatar style={{ width: "85px", height: "85px" }} src="" />
                 </Grid>
                 <Grid item md={6}>
-                  <Typography variant="h3">RCOEM</Typography>
+                  <Typography variant="h3">VJTI</Typography>
                   <Typography variant="overline" style={{ fontSize: "15px" }}>
-                    ADDRESS : 88RG5R4VFB5VEGE6255
+                    ADDRESS : 0x87c3e05e973c35b185f77e8de248d349cb150bce
                   </Typography>
                   {/* <Typography variant="h6">Linked Accounts</Typography> */}
                 </Grid>

@@ -90,10 +90,15 @@ class UpdateProf extends Component {
     }
   };
 
-  captureFile = event => {
+  captureFile = async event => {
     event.preventDefault();
     const file = event.target.files[0];
     console.log(event.target.files);
+
+    const added= await ipfs.add(file);
+    this.setState({ profilepic: added.path });
+
+
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {

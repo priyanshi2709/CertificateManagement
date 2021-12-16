@@ -66,14 +66,16 @@ class StudentDashBoard extends Component {
 
     this.setState({ owner1: response[0] });
     this.setState({ owner2: response[1] });
-    // console.log("owner:Institute:" + response[1]);
-    // console.log("owner:Student:" + response[0]);
+    console.log("owner:Institute:" + response[1]);
+    console.log("owner:Student:" + response[0]);
+    
     const response1 = await contract.methods.getProfile(accounts[0]).call();
     this.setState({ name: response1[0] });
     this.setState({ profilepic: response1[1] });
     const response3 = await contract.methods.getAadhar(accounts[0]).call();
     this.setState({ aadhar: response3 });
     console.log(response3);
+    console.log("Profile:",this.state.profilepic);
     // const response2 = await contract.methods
     //   .getUploadReqList(accounts[0])
     //   .call();
@@ -109,7 +111,7 @@ class StudentDashBoard extends Component {
   };
   render() {
     return (
-      <BrowserRouter>
+      // <BrowserRouter>
         <div>
           <div>
             <Grid container justifyContent="flex-start">
@@ -227,74 +229,7 @@ class StudentDashBoard extends Component {
                           </Link>
                         </ListItemText>
                       </ListItem>
-                      {/* <ListItem
-                        button
-                        style={{ width: "300px", color: "#3F51B5" }}
-                      >
-                        <ListItemAvatar>
-                          <MailIcon />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Link style={{ textDecoration: "none" }} to="/myreqs">
-                            <Typography variant="h6">My Requests</Typography>
-                          </Link>
-                        </ListItemText>
-                      </ListItem> */}
-                      {/* <ListItem
-                        button
-                        style={{ width: "300px", color: "#3F51B5" }}
-                      >
-                        <ListItemAvatar>
-                          <FolderIcon />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Link
-                            style={{ textDecoration: "none" }}
-                            to="/pendapp"
-                          >
-                            <Typography variant="h6">
-                              Pending Approvals
-                            </Typography>
-                          </Link>
-                        </ListItemText>
-                      </ListItem> */}
-
-                      {/* <ListItem
-                        button
-                        style={{ width: "300px", color: "#3F51B5" }}
-                      >
-                        <ListItemAvatar>
-                          <FolderIcon />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Link
-                            style={{ textDecoration: "none" }}
-                            to="/approvechnageininst"
-                          >
-                            <Typography variant="h6">
-                              Approve Institute Change
-                            </Typography>
-                          </Link>
-                        </ListItemText>
-                      </ListItem> */}
-                      {/* <ListItem
-                        button
-                        style={{ width: "300px", color: "#3F51B5" }}
-                      >
-                        <ListItemAvatar>
-                          <FolderIcon />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Link
-                            style={{ textDecoration: "none" }}
-                            to="/approveaccessreq"
-                          >
-                            <Typography variant="h6">
-                              Approve Access Requests
-                            </Typography>
-                          </Link>
-                        </ListItemText>
-                      </ListItem> */}
+                     
                       <ListItem
                         button
                         style={{ width: "300px", color: "#3F51B5" }}
@@ -342,23 +277,7 @@ class StudentDashBoard extends Component {
                           </Link>
                         </ListItemText>
                       </ListItem>
-                      {/* <ListItem
-                        button
-                        style={{ width: "300px", color: "#3F51B5" }}
-                      >
-                        <ListItemAvatar>
-                          <AssignmentIcon />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Link
-                            to="/pasthistory"
-                            style={{ textDecoration: "none" }}
-                          >
-                            <Typography variant="h6">Past History</Typography>
-                          </Link>
-                        </ListItemText>
-                      </ListItem> */}
-                    </List>
+                       </List>
                   </Grid>
                 </Card>
               </Grid>
@@ -369,90 +288,92 @@ class StudentDashBoard extends Component {
                   paddingTop: "70px"
                 }}
               >
-                <Routes>
-                  <Route
+
+                 <Routes>
+                  {/* <Route
                     path="/pendapp"
-                    element={() => (
+                    element={
                       <PendingApproval
                         accounts={this.props.accounts}
                         contract={this.props.contract}
                       />
-                    )}
+                    }
                   />
                   <Route
                     path="/approveaccessreq"
-                    element={() => (
+                    element={
                       <ApproveAccessReq
                         accounts={this.props.accounts}
                         contract={this.props.contract}
                       />
-                    )}
+                    }
                   />
                   <Route
                     path="/FreeAccess"
-                    element={() => (
+                    element={
                       <FreeAccess
                         accounts={this.props.accounts}
                         contract={this.props.contract}
                       />
-                    )}
+                    }
                   />
                   <Route
                     path="/giveaccess"
-                    element={() => (
+                    element={
                       <GiveAccessTo
                         accounts={this.props.accounts}
                         contract={this.props.contract}
                       />
-                    )}
+                    }
                   />
                   <Route
                     path="/approvechnageininst"
-                    element={() => (
+                    element={
                       <ApproveChnageInst
                         accounts={this.props.accounts}
                         contract={this.props.contract}
                       />
-                    )}
+                    }
                   />
                   <Route
                     path="/myreqs"
-                    element={() => (
+                    element={
                       <MyRequest
                         accounts={this.props.accounts}
                         contract={this.props.contract}
                       />
-                    )}
+                    }
                   />
                   <Route
                     path="/pasthistory"
-                    element={() => (
+                    element={
                       <PastHistory
                         accounts={this.props.accounts}
                         contract={this.props.contract}
                       />
-                    )}
+                    }
                   />
                   <Route
                     path="/chinst"
-                    element={() => (
+                    element={
                       <ChangeInst
                         accounts={this.props.accounts}
                         contract={this.props.contract}
                       />
-                    )}
+                    }
                   />
 
                   <Route
                     path="/mydocs"
-                    element={() => (
+                    element={
                       <MyDocuments
                         accounts={this.props.accounts}
                         contract={this.props.contract}
                       />
-                    )}
-                  />
-                </Routes>
+                    }
+                  /> */}
+                </Routes> 
+                
               </Grid>
 
               <Grid
@@ -473,28 +394,13 @@ class StudentDashBoard extends Component {
                     </Typography>
                   </Typography>
                   <List>
-                    {/* {this.props.student.notifications.map(notifications => {
-                    return (
-                      <div>
-                        <ListItem button>
-                          <ListItemText>
-                            <Typography variant="title">
-                              {notifications.institute} : Request to view{" "}
-                              {notifications.docname}
-                            </Typography>
-                          </ListItemText>
-                        </ListItem>
-                        <Divider />
-                      </div>
-                    );
-                  })} */}
-                  </List>
+                    </List>
                 </Card>
               </Grid>
             </Grid>
           </div>
         </div>
-      </BrowserRouter>
+      /* </BrowserRouter> */
     );
   }
 }

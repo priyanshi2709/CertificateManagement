@@ -19,6 +19,14 @@ import RoutesDir from "./Routesdir/Routes.jsx";
 import InstRoutes from "./Routesdir/InstRoutes";
 import MyRequestInst from "./Institute/MyRequestInst.jsx";
 import MyProfile from "./Student/MyProfile.jsx";
+import MyDocuments from "./Student/MyDocuments";
+import PendingApproval from "./Student/PendingApproval";
+import ApproveAccessReq from "./Student/ApproveAccessReq";
+import FreeAccess from "./Student/FreeAccess";
+import GiveAccessTo from "./Student/GiveAccessTo";
+import ApproveChnageInst from "./Student/ApproveChangeInst";
+import PastHistory from "./Student/PastHistory";
+import ChangeInst from "./Student/ChangeInst";
 import MyInstitute from "./Institute/MyInstitute.jsx";
 import MultiSigCreationInst from "./Institute/MultiSigCreationInst.jsx";
 import MultiSigCreationStud from "./Student/MultiSigCreationStud";
@@ -38,6 +46,10 @@ import SignUpGoogle from "./Auth/SignUpG.jsx";
 import SignUpGoogleI from "./Auth/SignUpI";
 import OtpI from "./Login/OtpI.jsx";
 import OtpS from "./Login/OtpS.jsx";
+import OtpAccess from "./Institute/OtpAccess";
+import LinkedAccount from "./Institute/LinkedAccounts";
+import Access from "./Institute/Access";
+import RequestAccess from "./Institute/RequestAccess";
 
 // import ChangeOwnershipbyStud from "./Student/ChangeOwnershipbyStud";
 class App extends Component {
@@ -222,7 +234,7 @@ class App extends Component {
                 }
               />
               <Route
-                path="/StudentDashBoard"
+                path="/StudentDashBoard/*"
                 element={
                   <StudentDashBoard
                     accounts={this.state.accounts}
@@ -239,6 +251,146 @@ class App extends Component {
                   />
                 }
               />
+              <Route
+                    path="/pendapp"
+                    element={
+                      <PendingApproval
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/approveaccessreq"
+                    element={
+                      <ApproveAccessReq
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/FreeAccess"
+                    element={
+                      <FreeAccess
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/giveaccess"
+                    element={
+                      <GiveAccessTo
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/approvechnageininst"
+                    element={
+                      <ApproveChnageInst
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/myreqs"
+                    element={
+                      <MyRequest
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/pasthistory"
+                    element={
+                      <PastHistory
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/chinst"
+                    element={
+                      <ChangeInst
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+
+                  <Route
+                    path="/mydocs"
+                    element={
+                      <MyDocuments
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/InstituteDashBoard/ChangeOwnershipApprovalbyInst"
+                    element={
+                      <ChangeOwnershipApprovalbyInst
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+
+                  <Route
+                    path="/InstituteDashBoard/OtpAccess"
+                    element={
+                      <OtpAccess
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+
+                  <Route
+                    path="/InstituteDashBoard/k"
+                    element={
+                      <LinkedAccount
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/InstituteDashBoard/acc"
+                    element={
+                      <Access
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/InstituteDashBoard/UploadApp"
+                    element={
+                      <ApproveUpload
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+
+                  <Route
+                    path="/InstituteDashBoard/ReqAccess"
+                    element={
+                      <RequestAccess
+                        accounts={this.state.accounts}
+                        contract={this.state.contract}
+                      />
+                    }
+                  />
+
               <Route
                 path="/dd"
                 element={

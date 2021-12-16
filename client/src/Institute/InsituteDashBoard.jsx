@@ -62,25 +62,14 @@ class InstituteDashBoard extends Component {
 
     this.setState({ owner1: response[0] });
     this.setState({ owner2: response[1] });
-    // console.log("owner:Institute:" + response[1]);
-    // console.log("owner:Student:" + response[0]);
+    
     const response1 = await contract.methods.getProfile(accounts[0]).call();
     this.setState({ name: response1[0] });
     this.setState({ profilepic: response1[1] });
     const response3 = await contract.methods.getAadhar(accounts[0]).call();
     this.setState({ aadhar: response3 });
     console.log(response3);
-    // const response2 = await contract.methods
-    //   .getUploadReqList(accounts[0])
-    //   .call();
-
-    // this.setState({ lis: response2 });
-
-    // const response3 = await contract.methods.getAadhar().call();
-
-    // this.setState({ aadhar: response3 });
-
-    // console.log("aa", response3);
+    
   };
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -114,7 +103,7 @@ class InstituteDashBoard extends Component {
   };
   render() {
     return (
-      <BrowserRouter>
+      //<BrowserRouter>
         <div>
           <div>
             <Grid container>
@@ -378,7 +367,7 @@ class InstituteDashBoard extends Component {
                   padding: "15px"
                 }}
               >
-                <Routes>
+                {/* <Routes>
                   <Route
                     path="/InstituteDashBoard/ChangeOwnershipApprovalbyInst"
                     element={() => (
@@ -436,7 +425,7 @@ class InstituteDashBoard extends Component {
                       />
                     )}
                   />
-                </Routes>
+                </Routes> */}
               </Grid>
               <Grid
                 item
@@ -448,7 +437,7 @@ class InstituteDashBoard extends Component {
             </Grid>
           </div>
         </div>
-      </BrowserRouter>
+      //</BrowserRouter>
     );
   }
 }

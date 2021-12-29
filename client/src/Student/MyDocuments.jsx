@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Typography, Avatar, Card, Button } from "@material-ui/core";
+import { Grid, Typography, Avatar, Card, Button, useControlled } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import ExpPanel from "../CommonComponents/ExpPanel";
@@ -21,14 +21,19 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import SimpleStorageContract from "../contracts/SimpleStorage.json";
 import FullScreenDialog from "../CommonComponents/FullScreenDialog";
 import fire from "../Fire";
-
+import TopNav from "./TopNav";
+import StudDash from "./StudentDashBoard";
+import verify from "../logo/verify.jpg";
+import progress from "../logo/progress.jpg";
+import deny from "../logo/deny.jpg";
 
 class MyDocuments extends Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      aadhar: "",
+      currentHash:"",
+      aadhar: [],
       a: "QmafSZjxx8QaqJJBEyxRej7D9E8STGCbLzwVRgT2U7ctug",
       hasAadhar: false,
       lastuploadername: "",
@@ -51,7 +56,7 @@ class MyDocuments extends Component {
         .child("UID")
         .child(accounts[0])
         .child("doc")
-        .set(this.state.aadhar);
+        .push().set([this.state.currentHash,"progress"]);
       
     } catch (fipu) {}
   };
@@ -65,7 +70,14 @@ class MyDocuments extends Component {
     const file = event.target.files[0];
 
     const added = await ipfs.add(file);
-    this.setState({ aadhar: added.path });
+    this.setState({currentHash:added.path});
+    this.setState(prevState => ({
+      aadhar: [...prevState.aadhar, [added.path,false]]
+    }));
+
+    //this.setState({aadhar: [...prevState.aadhar, [added.path,false]]});
+
+    
     this.setState({hasAadhar:true});
     this.firebaseset();
 
@@ -101,9 +113,9 @@ class MyDocuments extends Component {
 
   newUpload = async () => {
     const { accounts, contract } = this.props;
-    console.log(this.state.aadhar);
+    //console.log(this.state);
     await contract.methods
-      .createUploadRequestbyUser(true, this.state.aadhar)
+      .createUploadRequestbyUser(true, this.state.currentHash)
       .send({ from: accounts[0] });
     var t = await contract.methods
       .getUploadReqList(this.props.accounts[0])
@@ -115,6 +127,7 @@ class MyDocuments extends Component {
 
   getDoc = async () => {
     const { accounts, contract } = this.props;
+    console.log("Called GetDoc");
     //var r = await contract.methods.getAadhar(accounts[0]).call();
     const response1 = await contract.methods.getProfile(accounts[0]).call();
     //this.setState({ aadhar: response1[0] });
@@ -123,7 +136,7 @@ class MyDocuments extends Component {
     var r=this.state.aadhar;
     console.log(r);
     if (r.length > 0) {
-      window.open(`https://gateway.ipfs.io/ipfs/${r}`);
+      window.open(`https://gateway.ipfs.io/ipfs/${r[0]}`);
     } else {
       window.alert("NULL");
     }
@@ -142,20 +155,46 @@ class MyDocuments extends Component {
       .call();
     console.log(t);
 
-    const rootRef = fire.database().ref();
-    const doc_hash = rootRef.child("UID").child(accounts[0]).child("doc");
-    
-    doc_hash.once('value', (snapshot) => {
-      const data = snapshot.val();
-      this.state.aadhar=data;
-    });
-    
-  };
+    var ref = fire.database().ref();
+    console.log(ref);
+
+    ref.once("value", (userSnapshot) => {
+    userSnapshot.child("UID").child(accounts[0]).child('doc').forEach((userSnapshot) => {
+        
+          console.log(userSnapshot);
+          
+          this.setState(prevState => ({
+            aadhar: [...prevState.aadhar, userSnapshot.val()]
+          }));
+          
+          this.setState({hasAadhar:true});
+          
+          console.log()
+          
+          console.log(this.state);
+        });                          
+  });
+
+  const response1 = await contract.methods.getProfile(accounts[0]).call();
+  this.setState({ lastuploadername: response1[0] });
+  this.setState({lastuploaderadd:accounts[0]});
+};         
 
   render() {
+    
     return (
       <div>
-        <Grid container>
+
+        <Grid container justifyContent="flex-start">
+        <Grid item md={12}>
+                <TopNav
+                  accounts={this.props.accounts}
+                  contract={this.props.contract}
+                />
+              </Grid>
+          <Grid item md={12} style={{ padding: "40px" }}>
+                {" "}
+          </Grid>
           <Grid item md={1} />
           <Grid item md={5}>
             <Card
@@ -190,48 +229,61 @@ class MyDocuments extends Component {
                   </Typography>
                 </Grid>
                 
-                {this.state.hasAadhar ? (
-                  <ExpansionPanel style={{ width: "800px" }}>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                      <Avatar
-                        style={{
-                          color: "#fff",
-                          backgroundColor: green[500]
-                        }}
-                      >
-                        <AssignmentIcon />
-                      </Avatar>
-                      <Typography style={{ margin: "10px" }}>
-                        B.Tech Degree
-                      </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <Grid container>
-                        <Grid item md={10}>
-                          <Typography>
-                            <em>B.Tech Degree </em> was uploaded by{" "}
-                            <em>{this.state.lastuploadername}</em>. <br />
-                            Uploader Address :{" "}
-                            <em>{this.state.lastuploaderadd}</em>
-                          </Typography>
-                        </Grid>
-                        <Grid item md={1}>
-                          <Button
-                            variant="outlined"
-                            style={{ color: "green", marginLeft: "0px" }}
-                            onClick={this.getDoc.bind(this)}
-                          >
-                            {/* <FullScreenDialog
-                            accounts={this.props.accounts}
-                            contract={this.props.contract}
-                          /> */}
-                            View
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                ) : null}
+                {this.state.aadhar.map((aadhar, i) => {     
+           console.log(aadhar);                 
+           // Return the element. Also pass key     
+           return (<ExpansionPanel style={{ width: "800px" }}>
+           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+             <Avatar
+               style={{
+                 color: "#fff",
+                 backgroundColor: green[500]
+               }}
+             >
+               <AssignmentIcon />
+             </Avatar>
+             <Typography style={{ margin: "10px" }}>
+               Certificate {i+1}
+             </Typography>
+
+            {aadhar[1]==="true" ? <Avatar src={verify} style={{ height: "80px",width:"100px", marginLeft: "450px"}} /> : null}
+
+            {aadhar[1]==="false" ? <Avatar src={deny} style={{ height: "80px",width:"100px", marginLeft: "450px"}} /> : null}
+
+            {aadhar[1]==="progress" ? <Avatar src={progress} style={{ height: "80px",width:"100px", marginLeft: "450px"}} /> : null}
+
+           </ExpansionPanelSummary>
+           <ExpansionPanelDetails>
+             <Grid container>
+               <Grid item md={10}>
+                 <Typography>
+                   <em>Certificate </em> was uploaded by{" "}
+                   <em>{this.state.lastuploadername}</em>. <br />
+                   Uploader Address :{" "}
+                   <em>{this.state.lastuploaderadd}</em>
+                 </Typography>
+               </Grid>
+               <Grid item md={1}>
+                 <Button
+                   variant="outlined"
+                   style={{ color: "green", marginLeft: "0px" }}
+                   onClick={()=>{
+                    window.open(`https://gateway.ipfs.io/ipfs/${aadhar[0]}`);
+                   }}
+                 >
+                   {/* <FullScreenDialog
+                   accounts={this.props.accounts}
+                   contract={this.props.contract}
+                 /> */}
+                   View
+                 </Button>
+               </Grid>
+             </Grid>
+           </ExpansionPanelDetails>
+         </ExpansionPanel>) 
+        })}
+
+              
                 {/* array map the above content  */}
                 <br />
                 <Grid container justifyContent="center">
@@ -283,7 +335,7 @@ class MyDocuments extends Component {
                       <Grid container justifyContent="center">
                         <img
                           src={`https://gateway.ipfs.io/ipfs/${
-                            this.state.aadhar
+                            this.state.currentHash
                           }`}
                           alt="Your Uploaded Docs Here"
                           style={{

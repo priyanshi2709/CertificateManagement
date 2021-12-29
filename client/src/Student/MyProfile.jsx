@@ -162,48 +162,7 @@ class MyProfile extends React.Component {
                 </Grid>
               </Grid>
             </Card>
-            <Card
-              className="shadow"
-              style={{ marginTop: "20px", padding: "15px" }}
-            >
-              <Grid container>
-                <Grid item md={1}>
-                  <Avatar
-                    style={{ backgroundColor: "#3F51B5", padding: "10px" }}
-                  >
-                    <MailIcon />
-                  </Avatar>
-                </Grid>
-                <Grid item md={2}>
-                  <Typography variant="headline" style={{ padding: "10px" }}>
-                    Documents
-                  </Typography>
-                  {/*} <List>
-                    <ListItem button>
-                      <ListItemText>Aadhar Card</ListItemText>
-                    </ListItem>
-                    <ListItem button>
-                      <ListItemText>Class XII Marksheet</ListItemText>
-                    </ListItem>
-                  </List>*/}
-                  <List>
-                    <Typography /*style={{ padding: "10px" }}*/>
-                      <Button onClick={this.getDoc.bind(this)}>
-                        B.Tech Degree
-                      </Button>
-                    </Typography>
-                    {/* <Typography variant="headline" style={{ padding: "5px" }}
-                    >
-                      <Button>XII marksheet</Button>
-                    </Typography>
-                    <Typography variant="headline" style={{ padding: "5px" }}
-                    >
-                      <Button>X marksheet</Button>
-                    </Typography> */}
-                  </List>
-                </Grid>
-              </Grid>
-            </Card>
+            
             <Card
               className="shadow"
               style={{ marginTop: "20px", padding: "15px" }}

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TopNav from "../Student/TopNav";
 import {
   Grid,
   Typography,
@@ -15,6 +16,10 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MailIcon from "@material-ui/icons/Mail";
+import verify from "../logo/verify.jpg";
+import progress from "../logo/progress.jpg";
+import deny from "../logo/deny.jpg";
+
 import {
   Dialog,
   DialogActions,
@@ -27,16 +32,20 @@ import {
   ListItemText,
   Divider
 } from "@material-ui/core";
+
+import fire from "../Fire";
+
 class Access extends Component {
   constructor(props) {
     super(props);
-    this.state = { hj: [], currentState: { a: "", b: "", name: "", pic: "" } };
+    this.state = { hj: [], currentState: { a: "", b: "", name: "", pic: "", aadhar:[]} };
   }
 
   componentDidMount = async () => {
     const { accounts, contract } = this.props;
 
     const as = await contract.methods.getIhaveaAccess(accounts[0]).call();
+    //await this.sleep(1000);
     console.log(as);
 
     var ai = [];
@@ -44,8 +53,21 @@ class Access extends Component {
       const oio = await contract.methods.getAadhar(op).call();
       console.log(oio);
 
+      var temp_aadhar=[];
+
+      var ref = fire.database().ref();
+      console.log(ref);
+
+      ref.once("value", (userSnapshot) => {
+      userSnapshot.child("UID").child(as).child('doc').forEach((userSnapshot) => {
+            console.log(userSnapshot);
+            temp_aadhar.push(userSnapshot.val());
+          });                          
+    });
+
+
       const a = await contract.methods.getProfile(op).call();
-      ai.push({ address: op, pic: oio, name: a[0], propic: a[1] });
+      ai.push({ address: op, pic: oio, name: a[0], propic: a[1], aadhar:temp_aadhar });
       this.setState({ hj: ai });
     });
 
@@ -54,6 +76,9 @@ class Access extends Component {
   handleClickOpen = () => {
     this.setState({ open: true });
   };
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   handleClose = () => {
     this.setState({ open: false });
   };
@@ -63,9 +88,20 @@ class Access extends Component {
         style={{
           backgroundColor: "white",
           height: "1000px",
-          marginTop: "90px"
+          
         }}
       >
+        <Grid container justifyContent="flex-start">
+        <Grid item md={12}>
+                <TopNav
+                  accounts={this.props.accounts}
+                  contract={this.props.contract}
+                />
+              </Grid>
+          <Grid item md={12} style={{ padding: "40px" }}>
+                {" "}
+          </Grid>
+          </Grid>
         <Typography variant="h4" style={{ padding: "20px", color: "#3F51B5" }}>
           Access Rights
           <br />
@@ -131,6 +167,8 @@ class Access extends Component {
 
               <Dialog
                 open={this.state.open}
+                fullWidth="true"
+                maxWidth="md"
                 onClose={this.handleClose}
                 aria-labelledby="form-dialog-title"
               >
@@ -169,14 +207,18 @@ class Access extends Component {
                       Documents{" "}
                       <Typography variant="caption">(Click to View)</Typography>
                     </DialogContentText>
-                    <List style={{ width: "500px" }}>
+
+                    {hj.aadhar.map((aadhar, i) => {
+                      return(
+                      aadhar[1]==="true" ?
+                    <List style={{ width: "900px" }}>
                       <ListItem button>
-                        <ListItemText>B.Tech Degree</ListItemText>
+                        <ListItemText style={{ width: "100px" }}>Certificate {i+1} </ListItemText>
                         <ButtonBase
                           onClick={() => {
                             if (hj.propic.length > 0) {
                               window.open(
-                                `https://gateway.ipfs.io/ipfs/${hj.pic}`
+                                `https://gateway.ipfs.io/ipfs/${aadhar[0]}`
                               );
                             } else {
                               window.alert("NULL");
@@ -185,7 +227,7 @@ class Access extends Component {
                         >
                           <Grid container justifyContent="center">
                             <img
-                              src={`https://gateway.ipfs.io/ipfs/${hj.pic}`}
+                              src={`https://gateway.ipfs.io/ipfs/${aadhar[0]}`}
                               alt="Your Profile Pic Here"
                               style={{
                                 margin: "20px",
@@ -193,13 +235,20 @@ class Access extends Component {
                                 width: "250px"
                               }}
                             />
+
+                       <Avatar src={verify} style={{ height: "80px",width:"100px", marginLeft: "450px"}} /> 
+
+                      
                           </Grid>
                         </ButtonBase>
                       </ListItem>
                       <Divider />
 
                       <Divider />
-                    </List>
+                    </List> : null )
+                    })}
+
+
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={this.handleClose} color="primary">
@@ -210,7 +259,9 @@ class Access extends Component {
               </Dialog>
             </div>
           );
-        })}
+        })}  
+
+        {/* closing here */}
       </div>
     );
   }

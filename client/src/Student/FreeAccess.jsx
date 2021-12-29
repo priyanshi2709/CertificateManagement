@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Typography, TextField, Card, Grid, Button } from "@material-ui/core";
 import fire from "../Fire";
+import TopNav from "./TopNav";
 
 class FreeAccess extends Component {
   constructor(props) {
@@ -37,7 +38,16 @@ class FreeAccess extends Component {
   render() {
     return (
       <div>
-        <Grid container>
+        <Grid container justifyContent="flex-start">
+        <Grid item md={12}>
+                <TopNav
+                  accounts={this.props.accounts}
+                  contract={this.props.contract}
+                />
+              </Grid>
+          <Grid item md={12} style={{ padding: "40px" }}>
+                {" "}
+          </Grid>
           <Grid item md={2} />
           <Grid item md={3} style={{ margin: "5%" }}>
             <Card style={{ padding: "25px", width: "500px" }}>

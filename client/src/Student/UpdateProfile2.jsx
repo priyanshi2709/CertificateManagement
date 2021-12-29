@@ -25,6 +25,7 @@ import fire from "../Fire";
 
 class UpdateProf extends Component {
   state = {
+    flag:false,
     storageValue: 0,
     web3: null,
     accounts: null,
@@ -91,13 +92,18 @@ class UpdateProf extends Component {
   };
 
   captureFile = async event => {
+    this.ch();
     event.preventDefault();
     const file = event.target.files[0];
     console.log(event.target.files);
 
     const added= await ipfs.add(file);
+    console.log(added);
+    console.log("File ADDEDDDDD")
+
     this.setState({ profilepic: added.path });
 
+    console.log("ProfilePIC:",this.state.profilepic);
 
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
@@ -107,6 +113,11 @@ class UpdateProf extends Component {
 
       this.hj(Buffer(reader.result));
     };
+  };
+
+  ch = () => {
+    this.setState({ flag: true });
+    console.log(1, this.state.flag);
   };
 
   // hj = async a => {

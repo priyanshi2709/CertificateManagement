@@ -43,7 +43,7 @@ class OtpI extends Component {
     console.log(this.state.random);
     const { accounts } = this.props;
     var key =
-      "AAAAX30t50E:APA91bEtGj87SPFqLUAAfrJRmQ3n1xOoXlHjtFOgaK1s9SF3buht2btYGe-8Uorosq1cIQ4BobINBNpN-7y-3txMmhEDKlYZ7DRre8375bIKF9Zdgx4iyER9b6YZETwLia2t0hcPmjW3";
+      "AAAA2mOmYnc:APA91bEjR9aIt2BEIeM3vdrSaFHM2r8Gnj6S0PjhUH90OorTY9a6_lDwmztYk6YQJQ2SBlU45aelsYE7-6LIykfzhLSL1rtyOhda6v1U_M7Qg9Pjzg-7aIPhCzMIz7vpq38T49t-3OaG";
     var to = "/topics/" + "a";
 
     var notification = {
@@ -78,6 +78,7 @@ class OtpI extends Component {
               <TextField
                 onChange={this.setE}
                 id="standard-name"
+                type="password"
                 label="OTP"
                 margin="normal"
                 style={{ width: "250px" }}

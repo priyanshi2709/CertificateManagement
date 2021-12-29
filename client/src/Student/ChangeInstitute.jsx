@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import TextField from "@material-ui/core/TextField";
+
+import TopNav from "./TopNav";
+import { Typography, TextField, Card, Grid, Button } from "@material-ui/core";
 
 class ChangeInstitute extends Component {
   state = {
@@ -30,6 +32,16 @@ class ChangeInstitute extends Component {
   render() {
     return (
       <div>
+        <Grid container justifyContent="flex-start">
+        <Grid item md={12}>
+                <TopNav
+                  accounts={this.props.accounts}
+                  contract={this.props.contract}
+                />
+              </Grid>
+          <Grid item md={12} style={{ padding: "40px" }}>
+                {" "}
+          </Grid>
         <TextField
           autoFocus
           margin="dense"
@@ -44,7 +56,9 @@ class ChangeInstitute extends Component {
           }}
         />
         <button onClick={this.changeInst.bind(this)}>go</button>
+        </Grid>
       </div>
+      
     );
   }
 }

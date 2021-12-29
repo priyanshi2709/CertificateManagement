@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Grid, Typography, Card, Button } from "@material-ui/core";
-
+import TopNav from "../Student/TopNav";
 class ChangeOwnershipApprovalbyInst extends Component {
   state = {
     // instname: "0xcdac9ddd2c5d0441a60a5a1cd27c54aabd889cda",
@@ -10,19 +10,33 @@ class ChangeOwnershipApprovalbyInst extends Component {
   verify = async () => {
     const { accounts, contract } = this.props;
 
-    const iwall = await contract.methods
+    const iwall2 = await contract.methods
       .getInstitutesWallet(accounts[0])
       .call();
     console.log("all", iwall);
+
+    var temp_iwall = [...new Set(iwall2)];
+    var iwall= Array.from(temp_iwall);
+
     var array = [];
     iwall.map(async iwall => {
+
       var newowner = await contract.methods.getChangeOwnerList(iwall).call();
-      console.log("chnage", iwall);
+      console.log("change NEWOWNER", newowner);
+
+      
+      console.log(array.length);
+
+      
 
       var getDet = await contract.methods.getProfile(iwall).call();
-      array.push({ a: iwall, b: newowner[0], name: getDet[0], pic: getDet[1] });
-    });
 
+      
+      array.push({ a: iwall, b: newowner[0], name: getDet[0], pic: getDet[1] });
+      
+      
+    });
+    await this.sleep(1000);
     this.setState({ array: array });
     console.log("array", array);
 
@@ -41,9 +55,25 @@ class ChangeOwnershipApprovalbyInst extends Component {
   componentWillMount = async () => {
     this.verify();
   };
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   render() {
     return (
-      <div syle={{ marginTop: "1000px" }}>
+      <div syle={{ }}>
+        <Grid container justifyContent="flex-start">
+        <Grid item md={12}>
+                <TopNav
+                  accounts={this.props.accounts}
+                  contract={this.props.contract}
+                />
+              </Grid>
+          <Grid item md={12} style={{ padding: "40px" }}>
+                {" "}
+          </Grid>
+          </Grid>
         {this.state.array.map(jk => {
           return (
             <div>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TopNav from "./TopNav";
 import {
   Grid,
   Typography,
@@ -49,7 +50,16 @@ class GiveAccessTo extends Component {
   render() {
     return (
       <div>
-        <Grid container>
+        <Grid container justifyContent="flex-start">
+        <Grid item md={12}>
+                <TopNav
+                  accounts={this.props.accounts}
+                  contract={this.props.contract}
+                />
+              </Grid>
+          <Grid item md={12} style={{ padding: "40px" }}>
+                {" "}
+          </Grid>
           <Grid item md={2} />
           <Grid item md={4}>
             <Card style={{ margin: "50px", padding: "25px", width: "500px" }}>

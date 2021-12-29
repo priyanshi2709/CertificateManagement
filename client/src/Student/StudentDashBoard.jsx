@@ -246,7 +246,7 @@ class StudentDashBoard extends Component {
                           </Link>
                         </ListItemText>
                       </ListItem>
-                      <ListItem
+                      {/* <ListItem
                         button
                         style={{ width: "300px", color: "#3F51B5" }}
                       >
@@ -261,8 +261,8 @@ class StudentDashBoard extends Component {
                             <Typography variant="h6">Free Access</Typography>
                           </Link>
                         </ListItemText>
-                      </ListItem>
-                      <ListItem
+                      </ListItem>*/}
+                      <ListItem 
                         button
                         style={{ width: "300px", color: "#3F51B5" }}
                       >

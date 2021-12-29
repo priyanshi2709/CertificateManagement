@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TopNav from "../Student/TopNav"
 import { Grid, Typography, Avatar, Card, Button } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import AssignmentIcon from "@material-ui/icons/Assignment";
@@ -8,6 +9,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MailIcon from "@material-ui/icons/Mail";
+import fire from "../Fire";
 import {
   Dialog,
   DialogActions,
@@ -22,12 +24,13 @@ import {
 } from "@material-ui/core";
 
 import ipfs from "../ipfs";
+import SelectInput from "@material-ui/core/Select/SelectInput";
 class LinkedAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
       hj: [],
-      currentState: { a: "", b: "", name: "", pic: "" },
+      currentState: { a: "", b: "", name: "", pic: "",aadhar:[] },
       newinstadd: "",
       hasAadhar: ""
     };
@@ -36,22 +39,29 @@ class LinkedAccount extends Component {
   
   getDoc = async a => {
     const { accounts, contract } = this.props;
-    var r = await contract.methods.getAadhar(a).call();
-    console.log(r);
-    if (r.length > 0) {
-      window.open(`https://gateway.ipfs.io/ipfs/${r}`);
+    //var r = await contract.methods.getAadhar(a).call();
+    //console.log("r",r);
+    if (a.length > 0) {
+      window.open(`https://gateway.ipfs.io/ipfs/${a}`);
     } else {
       window.alert("NULL");
     }
   };
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   componentWillMount = async () => {
     const { accounts, contract } = this.props;
+    //this.state.hj=await this.verify();
     const linked_accts=await this.verify();
+    await this.sleep(1000);
     this.setState({hj:linked_accts});
     console.log("LINKED_ACCTS",linked_accts);
-    
-    console.log("Hello After Linked",linked_accts.length);
 
+    //console.log("HJ LOGGGGG",this.state.hj[0].aadhar);
+    
     var r = await contract.methods.getAadhar(accounts[0]).call();
     if (r.length > 0) {
       this.setState({ hasAadhar: true });
@@ -63,18 +73,49 @@ class LinkedAccount extends Component {
     const re = await contract.methods.getInstitutesWallet(accounts[0]).call();
     var h = [];
     console.log("INSIDE VERIFY");
-
+    
     var i=0;
 
     re.map(async re => {
+      var flag=false;
       var assa = await contract.methods.getChangeOwnerList(re).call();
       console.log("Accounts", re);
 
       var getDet = await contract.methods.getProfile(re).call();
-      h.push({ a: re, b: assa[0], name: getDet[0], pic: getDet[1] });
-      //this.setState({hj:{ a: re[i], b: assa[0], name: getDet[0], pic: getDet[1] }});
+
+      for(var i=0;i<h.length;i++)
+      {
+        if(h[i].a==re)
+        {
+          flag=true;
+        }
+      }
+
+    var temp_aadhar=[];
+
+    var ref = fire.database().ref();
+    console.log(ref);
+
+    ref.once("value", (userSnapshot) => {
+    userSnapshot.child("UID").child(re).child('doc').forEach((userSnapshot) => {
+        
+          console.log(userSnapshot);
+          
+          // this.setState(prevState => ({
+          //   aadhar: [...prevState.aadhar, userSnapshot.val()]
+          // }))
+
+          temp_aadhar.push(userSnapshot.val());
+        });                          
+  });
+
+
+
+      if(!flag)
+      {
+        h.push({ a: re, b: assa[0], name: getDet[0], pic: getDet[1], aadhar:temp_aadhar });
+      }
       
-      //this.setState({ hj: h });
       console.log(h);
       
     });
@@ -96,16 +137,17 @@ class LinkedAccount extends Component {
     this.setState({ open1: false });
   };
 
-  captureFile = event => {
+  captureFile = async event => {
     event.preventDefault();
     const file = event.target.files[0];
     console.log(event.target.files);
+
+    const added= await ipfs.add(file);
+    
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
-      // this.setState({ buffer: Buffer(reader.result) });
-      //   console.log("buffjmnnnnnnnnnnnnnnnnnner", Buffer(reader.result));
-
+      
       this.hj(Buffer(reader.result));
     };
   };
@@ -145,10 +187,7 @@ class LinkedAccount extends Component {
       .getChangeOwnerList(this.state.currentState.a)
       .call();
     console.log(r);
-    // await contract.methods
-    //   .approveChangeOwnerINSTReqbyStud(this.state.currentState.a)
-    //   .send({ from: accounts[0] });
-
+    
     const response = await contract.methods
       .getOwners(this.state.currentState.a)
       .call();
@@ -162,9 +201,20 @@ class LinkedAccount extends Component {
         style={{
           backgroundColor: "white",
           height: "1000px",
-          marginTop: "90px"
+          
         }}
       >
+        <Grid container justifyContent="flex-start">
+        <Grid item md={12}>
+                <TopNav
+                  accounts={this.props.accounts}
+                  contract={this.props.contract}
+                />
+              </Grid>
+          <Grid item md={12} style={{ padding: "40px" }}>
+                {" "}
+          </Grid>
+          </Grid>
         <Typography variant="h4" style={{ padding: "20px", color: "#3F51B5" }}>
           Linked Accounts
           <br />
@@ -174,7 +224,7 @@ class LinkedAccount extends Component {
           return (
             <div>
               <div>
-                <Grid container>
+              <Grid container>
                   <Grid item md={1} />
                   <Grid
                     item
@@ -287,34 +337,40 @@ class LinkedAccount extends Component {
                         (Click to send View Request)
                       </Typography>
                     </DialogContentText>
+                    {hj.aadhar.map((aadhar, i) => {
+                      
+                    return(
                     <List style={{ width: "500px" }}>
-                      <ListItem button>
-                        <ListItemText>B.Tech Degree</ListItemText>
-                        <Button>
+                     
+                     <ListItem button>
+                        <ListItemText>Certificate {i+1} </ListItemText>
+                        {/* <Button>
                           <input onChange={this.captureFile} type="file" />
-                        </Button>
+                        </Button> */}
 
                         <Button
                           onClick={this.getDoc.bind(
                             this,
-                            this.state.currentState.a
+                            aadhar[0]
                           )}
                           variant="outlined"
                         >
-                          view
+                          view Doc
                         </Button>
                       </ListItem>
-                      <Divider />
-                    </List>
+                      <Divider /> 
+                   
+                    </List> )
+                     })}
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={this.handleClose} color="primary">
-                      Cancel
+                      Close
                     </Button>
 
-                    <Button onClick={this.onCreate} color="primary">
+                    {/* <Button onClick={this.onCreate} color="primary">
                       Create New Upload Request
-                    </Button>
+                    </Button> */}
                   </DialogActions>
                 </div>
               </Dialog>

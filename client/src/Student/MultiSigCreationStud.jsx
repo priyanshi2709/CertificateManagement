@@ -147,6 +147,7 @@ class MultiSigCreationStud extends Component {
               </Grid>
             </Card>
           </Grid>
+          
         </Grid>
         {this.state.trig ? <Navigate to="/StudentDashBoard" /> : null}
       </div>

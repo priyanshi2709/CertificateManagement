@@ -17,7 +17,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { Grid, Avatar } from "@material-ui/core";
-import logo from "../logo/logo.jpeg";
+import logo from "../logo/icon.png";
 import navpro from "../logo/navpro.jpeg"
 
 const styles = theme => ({
@@ -187,7 +187,7 @@ class TopNav extends React.Component {
                   style={{ marginLeft: "15px" }}
                   noWrap
                 >
-                  e-Certify
+                  e-Verify
                 </Typography>
                 <div className={classes.search}>
                   <div className={classes.searchIcon}>

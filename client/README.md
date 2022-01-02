@@ -2,7 +2,7 @@
  
 <!--<img height=200px src="./src/logo/logo.jpeg" >         
         </p>
-<h1 align="center"> E-Certify </h1>
+<h1 align="center"> E-Verify </h1>
 <h3 align="center"> Blockchain Based Certificate Validation <h3>
   
 
@@ -18,7 +18,7 @@
   
  </div>-->
 
-##  E-Certify : About
+##  E-Verify : About
 - It is D-App on [Ethereum](https://www.ethereum.org/).
 - Back-End has Smart Contract 
 - Front-end of our Web-App is made with [React.Js](https://github.com/facebook/create-react-app) and our complete frontend components are available at [@gauravsharma-gs](https://github.com/gauravsharma-gs)  /dapper-ui   ([visit](https://github.com/gauravsharma-gs/dapper-ui))   

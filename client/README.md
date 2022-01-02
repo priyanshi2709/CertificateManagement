@@ -19,13 +19,6 @@
  </div>-->
 
 ##  E-Certify : About
-- It is a blockchain based project for online certificate validation. 
-- The major problem of counterfeit certificates can be tackled with the help of E-Certify, as it provides a solution to preserve the       genuineness of a certificate. 
-- It works on the idea that: “Only the issuer can upload the certificate and the rest people can only view  it.” The entire process       works on the blockchain in partnership with the IPFS(to provide data security). 
-- Does Everything for Certificates : Storing ,Validating and Sharing .
-- Thus this is a modern and hassle-free solution to manage certificates and verify them!
-- This Project was made at SIH 2019
-## Insight
 - It is D-App on [Ethereum](https://www.ethereum.org/).
 - Back-End has Smart Contract 
 - Front-end of our Web-App is made with [React.Js](https://github.com/facebook/create-react-app) and our complete frontend components are available at [@gauravsharma-gs](https://github.com/gauravsharma-gs)  /dapper-ui   ([visit](https://github.com/gauravsharma-gs/dapper-ui))   
@@ -37,6 +30,8 @@
 - It create Multi-Sig Wallets for every student where both Student and his/her Institute is Owner.
 - We are using [Metamask](https://metamask.io/) Browser Extension to work with Ethereum.
 - We have used [Truffle](https://www.trufflesuite.com/) for testing our project
+## Insight
+
 
 ## How to Use
 

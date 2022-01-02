@@ -21,7 +21,7 @@
 ##  E-Verify : About
 - It is D-App on [Ethereum](https://www.ethereum.org/).
 - Back-End has Smart Contract 
-- Front-end of our Web-App is made with [React.Js](https://github.com/facebook/create-react-app) and our complete frontend components are available at [@gauravsharma-gs](https://github.com/gauravsharma-gs)  /dapper-ui   ([visit](https://github.com/gauravsharma-gs/dapper-ui))   
+- Front-end of our Web-App is made with [React.Js](https://github.com/facebook/create-react-app) 
 - All User-Data is stored on [IPFS](https://ipfs.io/) also every data is first encryted locally and then send to ipfs to have more security
 <p align="center">
  <img height=350px  src="./img/screens/encryt.PNG" >

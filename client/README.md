@@ -30,6 +30,6 @@
 - It create Multi-Sig Wallets for every student where both Student and his/her Institute is Owner.
 - We are using [Metamask](https://metamask.io/) Browser Extension to work with Ethereum.
 - We have used [Truffle](https://www.trufflesuite.com/) for testing our project
-## Insight
 
-
+## Walkthrough
+- Go to [Document](https://docs.google.com/document/d/1zlCLq1vHw5JCTFnyKbWK6TXB7Pfw9P94yeEHhqo5eJo/edit?usp=sharing) for complete walkthrough and documentation

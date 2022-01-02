@@ -21,9 +21,3 @@
 
 ## How to Use
 - Go to (https://docs.google.com/document/d/1zlCLq1vHw5JCTFnyKbWK6TXB7Pfw9P94yeEHhqo5eJo/edit?usp=sharing) for the complete documentation
-  - Nikhil Sahu - [nikhildsahu](https://github.com/nikhildsahu)
-  - Gaurav Sharma - [gauravsharma-gs](https://github.com/gauravsharma-gs)
-## License
-This project is licensed under the MIT - see the [LICENSE](https://github.com/nikhildsahu/E-Certify/blob/master/LICENSE) file for details.
-  
- -->
